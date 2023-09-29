@@ -38,6 +38,12 @@ def fightMode(playerHP, enemyHP, enemy):
     else:
       print("You died.")
     fightMode = False
+def addXP(gainXP):
+  global playerXP 
+  playerXP += gainXP
+  return playerXP
+
+playerXP = 0
 
 #print welcome message
 print("Welcome to Adventure Land!")
@@ -79,7 +85,7 @@ while True:
 
 #prompt for fight choice
 print("Let's begin your journey! You travel into a forest and you encoutner a dragon." \
-      "Do you fight? Yes or no?")
+      " Do you fight? Yes or no?")
 fightChoice = input("> ")
 
 if(fightChoice == "Yes".lower()):
@@ -93,3 +99,5 @@ else:
 #commence dragon fight
 print("Let's begin the fight!")
 fightMode(100, 100, "dragon")
+addXP(15)
+print("You have " + str(playerXP) + " XP!")
