@@ -1,7 +1,9 @@
 import random
 
-def fightMode(playerHP, enemyHP, enemy):
+#fight mode
+def fightMode(playerHP, enemyHP, enemy, gainXP):
   fightMode = True
+  print("You have entered combat!")
   while fightMode:
     print(playerAbilities)
 
@@ -34,14 +36,21 @@ def fightMode(playerHP, enemyHP, enemy):
       continue
     elif (enemyHP <= 0):
       print("You defeated the " + enemy + "!")
+      global playerXP 
+      playerXP += gainXP  
+      print("You have gained " + str(gainXP) + " XP!")
       fightMode = False
     else:
       print("You died.")
     fightMode = False
-def addXP(gainXP):
-  global playerXP 
-  playerXP += gainXP
-  return playerXP
+
+#allow player to check xp total
+def checkXP():
+  answer = input("Would you like to check your XP? Yes or no >")
+  if(answer == "yes".lower()):
+    print("You have " + str(playerXP) + " XP total.")
+  else:
+    print("ok...")  
 
 playerXP = 0
 
@@ -98,6 +107,9 @@ else:
 
 #commence dragon fight
 print("Let's begin the fight!")
-fightMode(100, 100, "dragon")
-addXP(15)
-print("You have " + str(playerXP) + " XP!")
+fightMode(100, 100, "dragon", 15)
+
+#fight troll 
+fightMode(100,100,"troll", 40)
+
+checkXP()  
