@@ -6,20 +6,20 @@
 # opponent paddle movement [DONE]
 # collision [DONE]
 # score keep [DONE]
-# ball restart
+# ball restart [DONE]
 # timer 
 
 import pygame, sys, random 
 
 def ball_movement():
     global ball_speed_x, ball_speed_y, opponent_score, player_score
-    ball.x += ball_speed_x
-    ball.y += ball_speed_y
+    ball.x += ball_speed_x 
+    ball.y += ball_speed_y 
 
-    if ball.x >= screen_width:
+    if ball.right >= screen_width:
         opponent_score += 1
-    
-    if ball.x <= 0:
+       
+    if ball.left <= 0:
         player_score += 1
 
     if ball.bottom >= screen_height or ball.top <= 0:
@@ -47,8 +47,12 @@ def opponent_movement():
     if opponent.top >= ball.top:
         opponent.y -= opponent_speed
 
-def ball_start():
 
+def ball_start():
+    global  ball_speed_x, ball_speed_y
+    ball.center = (screen_width/2, screen_height/2)
+    ball_speed_x *= random.choice((-1,1))
+    ball_speed_y *= random.choice((-1,1))
 
 pygame.init() 
 
@@ -69,14 +73,15 @@ opponent = pygame.Rect(10, screen_height/2 - 30, 10, 125)
 game_font = pygame.font.SysFont("comicsansm", 45, False, False)
 
 # speeds
-ball_speed_x = 7
-ball_speed_y = 7
+ball_speed_x = 7 
+ball_speed_y = 7 
 player_speed = 0
 opponent_speed = 7
 
 # score count 
 player_score = 0
 opponent_score = 0
+
 
 while True: 
     for event in pygame.event.get():
@@ -105,6 +110,9 @@ while True:
     ball_movement()
     player_movement()
     opponent_movement()
+
+    if ball.right >= screen_width or ball.left <= 0:
+        ball_start()
 
     player_score_text = game_font.render(str(player_score), True, light_grey)
     screen.blit(player_score_text, (screen_width/2 + 10,screen_height/2))
